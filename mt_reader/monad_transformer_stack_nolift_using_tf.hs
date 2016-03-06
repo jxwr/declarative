@@ -3,7 +3,7 @@ module Main where
 import Control.Monad.Trans.State
 import Control.Monad.Trans.Class
 
-import MyReader
+import MyReaderTF
 
 data Config = CVal Int
 

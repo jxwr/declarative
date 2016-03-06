@@ -3,7 +3,7 @@
 {-# LANGUAGE FlexibleInstances #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module MyReader (
+module MyReaderFD (
   MonadReader(..),
   ReaderT,
   runReaderT,
