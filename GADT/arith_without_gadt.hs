@@ -26,7 +26,7 @@ main = do
   let eq30 = Eq (I 30) (Add (I 10) (I 20))
   let neq30 = Eq (I 31) (Add (I 10) (I 20))
   let nil = Eq (B False) (Add (I 10) (I 20))
-  putStrLn $ show (eval expr30)
-  putStrLn $ show (eval eq30)
-  putStrLn $ show (eval neq30)
-  putStrLn $ show (eval nil)
+  print $ eval expr30
+  print $ eval eq30
+  print $ eval neq30
+  print $ eval nil
