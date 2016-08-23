@@ -7,7 +7,7 @@ data Expr a where
     Mul :: Expr Int -> Expr Int -> Expr Int
     Eq  :: Expr Int -> Expr Int -> Expr Bool
 
--- GADT构造函数可以有影子函数，还可指定返回类型
+-- GADT构造函数可以有影子类型，还可指定返回类型
 eval :: Expr a -> a
 eval (I n) = n
 eval (B b) = b
