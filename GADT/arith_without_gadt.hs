@@ -6,7 +6,7 @@ data Expr = I Int
         | Mul Expr Expr
         | Eq Expr Expr    -- equality test
 
-evalAux e1 e2 either fn = do
+eval' e1 e2 either fn = do
   a <- eval e1
   b <- eval e2
   case (a, b) of
@@ -14,12 +14,11 @@ evalAux e1 e2 either fn = do
     _ -> Nothing
 
 eval :: Expr -> Maybe (Either Int Bool)
-
 eval (I n) = Just (Left n)
 eval (B b) = Just (Right b)
-eval (Add e1 e2) = evalAux e1 e2 Left (+)
-eval (Mul e1 e2) = evalAux e1 e2 Left (*)
-eval (Eq e1 e2) = evalAux e1 e2 Right (==)
+eval (Add e1 e2) = eval' e1 e2 Left (+)
+eval (Mul e1 e2) = eval' e1 e2 Left (*)
+eval (Eq e1 e2) = eval' e1 e2 Right (==)
 
 -- test  
 main = do
