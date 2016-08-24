@@ -20,21 +20,6 @@ instance Foldable List where
   foldr f b Nil = b
   foldr f b (Cons a xs) = f a (foldr f b xs)
 
-test_foldr_impl = do
-  let xs = (Cons 1 (Cons 2 (Cons 3 Nil)))
-  
-  print $ foldr (+) 0 xs
-  print $ toList xs
-  print $ length xs
-  print (sum xs) >> putStrLn "-"
-
-  -- 遍历Foldable，执行某个Action
-  traverse_ print xs >> putStrLn "-"
-  -- 跟traverse_一样，区别在于返回类型是Applicative还是Monad，就是说traverse_总是可用
-  mapM_ print xs >> putStrLn "-"
-  -- 依次执行Action组成的Foldable
-  sequence_ (Cons (putStrLn "a ") (Cons (putStrLn "b") Nil))
-  
 
 data List' a = Nil' | Cons' a (List' a)
 
@@ -50,24 +35,27 @@ instance Foldable List' where
   foldMap f Nil' = mempty
   foldMap f (Cons' a xs) = f a `mappend` foldMap f xs
 
-test_foldMap_impl = do
-  let xs' = (Cons' 1 (Cons' 2 (Cons' 3 Nil')))
-  
-  print $ foldr (+) 0 xs'
-  print $ toList xs'
-  print $ length xs'
-  print (sum xs') >> putStrLn "-"
+
+test_impl xs = do  
+  print $ foldr (+) 0 xs
+  print $ toList xs
+  print $ length xs
+  print (sum xs) >> putStrLn "-"
 
   -- 遍历Foldable，执行某个Action
-  traverse_ print xs' >> putStrLn "-"
+  traverse_ print xs >> putStrLn "-"
   -- 跟traverse_一样，区别在于返回类型是Applicative还是Monad，就是说traverse_总是可用
-  mapM_ print xs' >> putStrLn "-"
+  mapM_ print xs >> putStrLn "-"
   -- 依次执行Action组成的Foldable
-  sequence_ (Cons' (putStrLn "a ") (Cons' (putStrLn "b") Nil'))    
+  sequence_ (Cons (putStrLn "a ") (Cons (putStrLn "b") Nil))
+  
 
 main = do
-  putStrLn "test_foldr_impl:" >> test_foldr_impl
-  putStrLn "test_foldMap_impl:" >> test_foldMap_impl
+  putStrLn "test_foldr_impl:"
+  test_impl (Cons 1 (Cons 2 (Cons 3 Nil)))
+  
+  putStrLn "test_foldMap_impl:"
+  test_impl (Cons' 1 (Cons' 2 (Cons' 3 Nil')))
 
 
   
