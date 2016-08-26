@@ -38,6 +38,8 @@ instance Functor List where
   -- fmap :: (a -> b) -> f a -> f b
   fmap f (Cons a xs) = Cons (f a) (fmap f xs)
   fmap f Nil = Nil
+  -- f <$> (Cons a xs) = Cons (f a) (f <$> xs)
+  -- f <$> Nil = Nil
 
 instance Foldable List where
   -- foldr :: (a -> b -> b) -> b -> List a -> b
