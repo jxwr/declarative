@@ -27,6 +27,9 @@ index_cps (x:xs) a k
 
 main = do
   addap_cps (\x -> (\k -> k (x * 2))) 10 print
+  -- 等价于
+  print $ addap_cps (\x -> (\k -> k (x * 2))) 10 id
+  
   print $ addap_cps (\x -> (\k -> k (x * 2))) 10 (+ 2)
 
   putStrLn "----"
@@ -37,8 +40,8 @@ main = do
   print $ index [3,1] 3
   print $ index [1,3] 3
   print $ map (index ['a'..'z']) ['a'..'z']
-
-  putStrLn "----"
-
+  
   index_cps [1,2,3,4] 3 print
-  mapM_ (\x -> index_cps ['a'..'z'] x print) ['a'..'z']
+  print $ map (\x -> index_cps ['a'..'z'] x id) ['a'..'z']
+  mapM_ (\x -> index_cps ['a'..'z'] x (putStr . show)) ['a'..'z']
+  
