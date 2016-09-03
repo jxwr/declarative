@@ -26,13 +26,14 @@ index_cps (x:xs) a k
          else k (-1 :: Int)
 
 main = do
+  putStrLn "---- addap ----"
+  
   addap_cps (\x -> (\k -> k (x * 2))) 10 print
   -- 等价于
   print $ addap_cps (\x -> (\k -> k (x * 2))) 10 id
-  
   print $ addap_cps (\x -> (\k -> k (x * 2))) 10 (+ 2)
 
-  putStrLn "----"
+  putStrLn "---- index ----"
   
   print $ index [1,2,3,4] 3
   print $ index [] 3
@@ -43,5 +44,7 @@ main = do
   
   index_cps [1,2,3,4] 3 print
   print $ map (\x -> index_cps ['a'..'z'] x id) ['a'..'z']
+
+  -- (Monad m, Foldable t) => (a -> m b) -> t a -> m ()
   mapM_ (\x -> index_cps ['a'..'z'] x (putStr . show)) ['a'..'z']
-  
+  traverse (\x -> index_cps ['a'..'z'] x (putStr . show)) ['a'..'z']
