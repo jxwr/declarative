@@ -45,6 +45,6 @@ main = do
   index_cps [1,2,3,4] 3 print
   print $ map (\x -> index_cps ['a'..'z'] x id) ['a'..'z']
 
-  -- (Monad m, Foldable t) => (a -> m b) -> t a -> m ()
+  -- mapM_ :: (Monad m, Foldable t) => (a -> m b) -> t a -> m ()
   mapM_ (\x -> index_cps ['a'..'z'] x (putStr . show)) ['a'..'z']
   traverse (\x -> index_cps ['a'..'z'] x (putStr . show)) ['a'..'z']
